@@ -1,0 +1,79 @@
+# Site settings
+title: Dallas Coble # site title
+description: >- # site description
+  Write ups and publications by Dallas Coble.
+lang: en-US # default lang
+timezone: Asia/Shenzhen # timezone
+image: assets/img/ogp.png # This image used for Open Graph more info https://ogp.me/
+mode: light # default theme "dark" | "light"
+
+home:
+  name: Dallas Coble # Site title
+  bio: >- # Discription
+  username: username # general username
+  github: github_username # github username
+  twitter: twitter_username # twitter username
+  facebook: facebook_username # facebook username
+  email: your-email@email.com # email adress
+
+# URL settings
+url: "localhost:4000"
+baseurl:
+permalink: /:title/
+google_analytics: # Leave empty if not using
+fb_appid:
+
+# Collection setting
+collections:
+  posts:
+    output: true
+
+# Markdown settings
+markdown: kramdown
+highlighter: rouge
+kramdown:
+  syntax_highlighter: rouge
+
+# Default front matter
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: post
+      comments: false
+
+# Jekyll Compose default front matter
+jekyll_compose:
+  post_default_front_matter:
+    modified:
+    tags: []
+    description:
+  draft_default_front_matter:
+    modified:
+    tags: []
+    description:
+
+# Homepage limit posts
+number_of_posts: 5
+
+# Build settings
+sass:
+  style: compressed
+
+include:
+  - _redirects
+  - .htaccess
+
+exclude:
+  - CNAME
+  - Gemfile
+  - Gemfile.lock
+  - LICENSE
+  - README.md
+  - node_modules
+  - CONTRIBUTING.md
+
+# Plugins
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
