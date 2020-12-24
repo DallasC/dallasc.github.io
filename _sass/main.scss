@@ -26,8 +26,8 @@ $text-title-color: #000;
 
 // Dark Colors
 $dark-text-base-color: #c7bebe;
-$dark-text-link-blue: #ff5277;
-$dark-text-link-blue-active: #ff2957;
+$dark-text-link-blue: #A95939;
+$dark-text-link-blue-active: #A95939;
 
 $dark-black: #131418;
 $dark-white: #eaeaea;
@@ -60,5 +60,5 @@ $on-widescreen: 1152px;
 }
 
 // Import sass files
-@import "klise/fonts", "klise/base", "klise/layout", "klise/post",
-  "klise/miscellaneous", "klise/syntax", "klise/dark";
+@import "wl/fonts", "wl/base", "wl/layout", "wl/post",
+  "wl/miscellaneous", "wl/syntax", "wl/dark";

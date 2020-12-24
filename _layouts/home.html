@@ -2,22 +2,31 @@
 layout: base
 home: true
 ---
-  <div class="author">
-    <p class="author-bio">Here you'll find showcases and writeups covering a range of topics like design, AI, distributed systems, security, hardware, and more. You can search below for something your interested in.</p>
-  </div>
+<div class="home">
+  <p class="home-callout">Here you'll find showcases and writeups covering a range of topics like design, cyber security, AI, distributed systems, data analytics, hardware, and more. You can search below for something your interested in.</p>
+</div>
+
 <div class="search-article">
   <label for="search-input" aria-hidden="true">
     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(128,128,128,0.8)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
   </label>
-  <input type="search" id="search-input" placeholder="Search for article" aria-label="Search">
+  <input type="search" id="search-input" placeholder="Search" aria-label="Search">
 </div>
 
 <ul id="search-results"></ul>
 
-{%- for post in site.posts -%}
-<article class="post-item">
-  <h3 class="post-item-title">
-    <a href="{{ post.url }}">{{ post.title }}</a> - {{ post.sample }}
-  </h3>
-</article>
+<h3>Categories</h3>
+{%- for category in site.categories -%}
+{%- capture name -%}{{ category | first }}{%- endcapture -%}
+<div class="tab">
+  <input id="{{ name }}" type="checkbox">
+  <label for="{{ name }}">{{ name }}</label>
+  <div class="tab-content">
+    {%- for post in site.categories[name] -%}
+      <article class="post-item">
+        <a href="{{ post.url }}"><b>{{ post.title }}</b> - {{ post.sample }}</a>
+      </article>
+    {%- endfor -%}
+  </div>
+</div>
 {%- endfor -%}

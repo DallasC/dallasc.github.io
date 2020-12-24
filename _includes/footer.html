@@ -1,8 +1,24 @@
 <footer class="footer">
+{%- assign url = page.url -%}
+{%- assign menus = site.data.footer -%}
+{%- if menus %}
+  {%- for menu in menus -%} 
+    {%- if menu.external -%}
+      <a
+        class="footer_item"
+        href="{{ menu.url }}"
+        target="_blank"
+        rel="noopener"
+      >{{ menu.title }}</a>
+    {%- else -%}
+      <a class="footer_item" href="{{ menu.url }}">{{ menu.title }}</a>
+    {%- endif -%} 
+  {%- endfor -%}
+{%- else -%}
   <a class="footer_item" href="/">home</a>
-  <a class="footer_item" href="/tags/">topics</a>
   <a class="footer_item" href="/about/">contact</a>
   <a class="footer_item" href="/feed.xml">rss</a>
+{%- endif -%}
 </footer>
 <script src="/assets/js/main.js" defer="defer"></script>
 

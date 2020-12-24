@@ -6,6 +6,10 @@
   url: /about/
   external: false
 
+- title: RSS
+  url: /feed.xml
+  external: false
+
 # Example:
 # - title: github
 #   url: https://github.com

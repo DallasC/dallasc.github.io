@@ -179,35 +179,22 @@
   }
 }
 
-// Author
-.author {
-  margin-top: 6.3rem;
-  margin-bottom: 7.2rem;
+// Home 
+.home {
+  margin-top: 5.3rem;
+  margin-bottom: 3.2rem;
   text-align: center;
 
   @include media-query($on-mobile) {
     margin-bottom: 3em;
   }
 
-  .author-avatar {
-    width: 70px;
-    height: 70px;
-    border-radius: 100%;
-    user-select: none;
-    background-color: $black;
-    -ms-user-select: none;
-    -webkit-user-select: none;
-    -webkit-animation: 0.5s ease-in forwards fadein;
-    animation: 0.5s ease-in forwards fadein;
-    opacity: 1;
-  }
-
-  .author-name {
+  .home-name {
     font-size: 1.7em;
     margin-bottom: 2px;
   }
 
-  .author-bio {
+  .home-callout {
     margin: 0 auto;
     opacity: 0.9;
     max-width: 393px;
@@ -281,10 +268,10 @@
 
     &:not(:last-child) {
       margin-right: 10px;
+    }
       &:hover {
         opacity: 1;
       }
-    }
   }
 
   .footer_copyright {
@@ -372,4 +359,57 @@
     border: 1px solid rgba(128, 128, 128, 0.1);
     background-color: rgba(128, 128, 128, 0.1);
   }
+}
+
+// Accordion
+.tab-content {
+  display: none;
+}
+
+.tab input:checked ~ .tab-content {
+  display: block;
+}
+
+.tab {
+  position: relative;
+  margin: 2px;
+}
+
+.tab input {
+  display: none;
+}
+
+.tab label {
+  display: block;
+  font-weight: bold;
+  padding: 10px;
+  cursor: pointer;
+  background-color: rgba(128, 128, 128, 0.1);
+  color: $text-base-color;
+}
+
+.tab label:after {
+  content: "\25b6";
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  display: block;
+  transition: all 0.4s;
+}
+
+.tab input:checked + label:after {
+  transform: rotate(90deg);
+}
+
+.tab-content {
+  overflow: hidden;
+  transition: max-height 0.4s; 
+  max-height: 0;
+  color: $text-base-color;
+}
+.tab-content article {
+  margin: 20px;
+}
+.tab input:checked ~ .tab-content {
+  max-height: 100vh;
 }
