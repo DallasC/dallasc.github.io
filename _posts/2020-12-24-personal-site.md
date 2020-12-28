@@ -1,6 +1,6 @@
 ---
 title: Personal Website
-summary; UI & UX exploration
+sample: UI & Ux exploration
 date: 2018-04-14 10:00:00 +07:00
 category: Design
 tags: [design, html, scss, frontend, css]
@@ -59,24 +59,8 @@ You can look at the code on [github](https://github.com/dallasc/dallasc.github.i
 
 ## Design
 First thing I did was create the `base.html`. This is the layout that all the pages on the website use. 
-```html
----
-layout: compress
----
-<!DOCTYPE html>
-<html lang="{{ page.lang | default: site.lang | default: " en " }}">
-{% include header.html %}
-<body data-theme="{{ site.mode }}" class="notransition">
-  {% include themer.html %}
-  {% include navbar.html %}
-  <div class="wrapper">
-    {{ content }}
-  {% include footer.html %}
-  </div>
-</body>
-</html>
-```
-The `layout: compress` tells jekyll to run it through `compress.html` which does all the common html compression techniques in order to minimize the size of the static webpage. 
+
+At the top the `layout: compress` tells jekyll to run it through `compress.html` which does all the common html compression techniques in order to minimize the size of the static webpage. 
 
 Next you'll see several `include` statements. These are common html components that can be reused. They are stored in the the `_includes` folder. As you can see we have:
 1. header.html   
