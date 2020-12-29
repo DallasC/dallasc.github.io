@@ -17,7 +17,7 @@ home:
   email: your-email@email.com # email adress
 
 # URL settings
-url: "localhost:4000"
+url: "dallasc.github.io"
 baseurl:
 permalink: /:title/
 google_analytics: # Leave empty if not using
