@@ -1,7 +1,7 @@
 --- 
 title: IPFS + ENS Integration
 sample: Open Source Contribution
-date: 2020-12-28 10:00:00 +07:00
+date: 2020-12-28 12:00:00 +07:00
 category: Blockchain
 tags: [distributed systems, smart contracts, design, ipfs, ens, blockchain, app, ethereum, open source]
 description: Integrating blockchain services IPFS and ENS(Ethereum Name Service). The process of working on a large pull request in a big open source project. 

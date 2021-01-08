@@ -1,7 +1,7 @@
 ---
 title: Personal Website
 sample: UI /UX Exploration
-date: 2020-12-26 12:00:00 +07:00
+date: 2020-12-24 12:00:00 +07:00
 category: Design
 tags: [design, html, scss, frontend, css, UI, UX]
 description: Thoughts and considerations when designing a personal website from UI and UX to the technical implementation.
