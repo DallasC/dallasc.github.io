@@ -34,7 +34,7 @@ I used [quicksilver](https://github.com/ryanisaacg/quicksilver) at the time. I w
 I'll give a basic rundown of the main components of the code. You can see the whole thing on github it's commented and is pretty straight forward since its such a small game.
 
 First up we have our basic unit a `Vector` and `Point`. Most game engines have these built in with the helper functions already there but I had to make them myself. One to make a vector from an angle and another to generate random vectors for spawning locations and speeds.
-``` Rust
+``` rust
 type Point2 = geom::Vector;
 type Vector2 = geom::Vector;
 
@@ -54,7 +54,7 @@ fn random_vec(max_magnitude: f32) -> Vector2 {
 
 There's also no built in Entity Component System(ECS) so I choose to set up my own little janky ECS. It works for this because it's such a small game and I don't need all the helper functions a full ECS provides. I can just manually register everything with each other.
 
-``` Rust
+``` rust
 #[derive(Debug, PartialEq)]
 enum ActorType {
     Player,
@@ -90,7 +90,7 @@ As you can see we have 4 types of Actors. Player (your spaceship), Rock (the ast
 Each actor is one of the actor types and stores its current postion, Current dirction, Current velocity, Angular Velocity, Bounding box info, layer, and life. Life has two meanings. For shot and radar it is the amount of time it has left before it disappears and for player and rock it is the actual hit points that are left. 
 
 Next we have to be able to initialize our Actors. They are all pretty much the same for each type and look like this:
-``` Rust
+``` rust
 fn create_player() -> Actor {
     Actor {
         tag: ActorType::Player,
@@ -108,7 +108,7 @@ fn create_player() -> Actor {
 As you can see we just create an actor with the default values. We do this for each Actor Type, nothing to fancy here.
 
 Next we have have an additional helper function to spawn in the rocks that looks like: 
-```Rust
+``` rust
 
 /// Create the given number of rocks.
 /// Makes sure that none of them are within the
@@ -132,7 +132,7 @@ fn create_rocks(num: i32, exclusion: Point2, min_radius: f32, max_radius: f32) -
 Here we create the given number of astroids depending on the level. It pretty much just makes a `Vec` containing `Rock` Actors with a random starting point and random velocity and sizes. Note that we also create an exclusion zone around the player to make sure that we spawn a rock right on top of them. 
 
 We also do the same thing for the wormhole but we only have to make one. It's the same function pretty much though just that its velocity set to 0 so it can't move as you can see here:
-``` Rust
+``` rust
 fn create_wormholes(num: i32, exclusion: Point2, min_radius: f32, max_radius: f32) -> Vec<Actor> {
     assert!(max_radius > min_radius);
     let new_wormhole = |_| {
@@ -147,7 +147,7 @@ fn create_wormholes(num: i32, exclusion: Point2, min_radius: f32, max_radius: f3
 }
 ```
 Next we have the player input. It basically just translates A and D into angular components that increment or deincrement the players facing direction. If they are going forward then we call `player_thrust` which computes its angular velocity.
-``` Rust
+``` rust
 fn player_handle_input(actor: &mut Actor, input: &InputState, dt: f32) {
     actor.facing += dt * PLAYER_TURN_RATE * input.xaxis;
 
@@ -163,7 +163,7 @@ fn player_thrust(actor: &mut Actor, dt: f32) {
 }
 ```
 Next we just have to update the players position by taking the players old position and using it's new velocity and angular velocity vectors to computer its new location for the given timestep.
-``` Rust
+``` rust
 
 const MAX_PHYSICS_VEL: f32 = 200.0;
 
@@ -180,7 +180,7 @@ fn update_actor_position(actor: &mut Actor, dt: f32) {
 ```
 
 We also add a little helper function to create a screen wrap effect. This allows us to go off one side of the screen and it places us on the other side of the screen.
-``` Rust
+``` rust
 fn wrap_actor_position(actor: &mut Actor, sx: f32, sy: f32) {
     // Wrap screen
     let screen_x_bounds = sx / 2.0;
@@ -199,7 +199,7 @@ fn wrap_actor_position(actor: &mut Actor, sx: f32, sy: f32) {
 ```
 
 The game is very basic in design and the assets are too. You can see them in the `static` folder on github. There are some basic images for the spaceship, lazer, and astroid. I also added some classic arcade sounds for when firing a lazer and when you hit something with either a lazer or your ship.
-``` Rust
+``` rust
 struct Assets {
     player_image: Asset<Image>,
     shot_image: Asset<Image>,
@@ -243,7 +243,7 @@ impl Assets {
 Most of it is just boilerplate from `quicksilver` for loading an asset. Every game engine does this differently so there's not much to learn from here.
 
 Next we have user inputs:
-``` Rust
+``` rust
  #[derive(Debug)]
 struct InputState {
     xaxis: f32,
@@ -266,7 +266,7 @@ impl Default for InputState {
 `xaxis` is when either A or D is pressed and translates to a change in the direction the ship is facing. Similarlly `yaxis` is used when the engine is turned on and adds velocity to the direction you are facing. `fire` and `radar` are both bools. If true it means you are holding them down and they continue to fire until you release the key. There is a built in cooldown to each type if you noticed earlier though. This prevents the player from spamming infinite lazers if they are holding down the button.
 
 Next we have the overall game state. This includes things like score, all the actors on the screen, current level and some other utility stuff like shot cooldown etc.
-``` Rust
+``` rust
 struct MainState {
     player: Actor,
     shots: Vec<Actor>,
@@ -405,7 +405,7 @@ impl MainState {
 This is a lot to take in but most of it is just initializing things and helper function. `new()` and `reset()` just start a new game or clean up the game when you die and start over. `fire_player_shot` and `fire_player_radar` just create a new actor for the players shot/radar as it comes onto the screen. `handle_collision` just checks if a lazer hit a rock/yourself hit a rock or if you made it to the wormhole. `clear_dead_stuff` checks if the rock has any life left and removes it if it doesn't. Lastly `check_for_level_end` does exactly what it sounds like and gives you points for the level and moves you onto the next level.
  
 Lastly we have a big section coming up. It may look confusing but its just `quicksilver` boilerplate for drawing things on screen and handling the update cycle for the game time-step. I'm not going to explain this in detail because it's only for quicksilver and doesn't really translate to other game engines. Quicksilver is no unmaintained and if I were to make this at the current date I would use `Bevy`. It is commented pretty well if you did want to look though.
-``` Rust
+``` rust
 
 impl State for MainState {
     fn new() -> quicksilver::Result<Self> {
